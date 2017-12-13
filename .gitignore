@@ -1,0 +1,8 @@
+node_modules/
+e2e/
+package-lock.json
+karma.conf.js
+protractor.conf.js
+tsconfig.json
+tslint.json
+.editorconfig
