@@ -1,0 +1,15 @@
+footer{
+    padding: 30px;
+    margin-top: 50px;
+}
+
+footer p{
+    margin:0;
+    font-size: 14px;
+}
+
+footer a{
+    display: block;
+    color: white;
+    font-size: 14px;
+}

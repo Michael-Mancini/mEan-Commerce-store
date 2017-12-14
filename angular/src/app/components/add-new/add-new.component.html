@@ -1,0 +1,66 @@
+<div class="container">
+  <form #frm="ngForm" (ngSubmit)="addItem(frm)" *ngIf="!toggleEdit">
+    <h2>Add Item</h2>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" name="itemName" id="name" class="form-control" ngModel required>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <label for="price">Price:</label>
+        <input type="number" name="itemPrice" id="price" class="form-control" ngModel required>
+      </div>
+      <div class="col">
+        <label for="stock">Amount in Stock</label>
+        <input type="number" name="itemStock" id="stock" class="form-control" ngModel required>
+      </div>
+    </div>
+    <br>
+    <button type="submit" name="button" class="btn btn-success" [disabled]=frm.invalid>Add Item</button>
+  </form>
+
+  <form #efrm="ngForm" (ngSubmit)="updateItem(efrm)" *ngIf="toggleEdit">
+    <h2>Edit Item</h2>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" name="itemName" id="name" class="form-control" [ngModel]="selectedItem.itemName" required>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <label for="price">Price:</label>
+        <input type="number" name="itemPrice" id="price" class="form-control" [ngModel]="selectedItem.itemPrice" required>
+      </div>
+      <div class="col">
+        <label for="stock">Amount in Stock</label>
+        <input type="number" name="itemStock" id="stock" class="form-control" [ngModel]="selectedItem.itemStock" required>
+      </div>
+    </div>
+    <br>
+    <button type="submit" name="button" class="btn btn-success" [disabled]=efrm.invalid>Update</button>
+  </form>
+
+  <br>
+
+  <h2>Items:</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Inventory</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of itemList">
+      <tr>
+        <th scope="row">{{item.itemName}}</th>
+        <td>{{item.itemPrice}}</td>
+        <td>{{item.itemStock}}</td>
+        <td><button class="btn btn-primary" (click)="showEditForm(item)">Edit</button></td>
+        <td><button class="btn btn-danger" (click)="deleteItem(item._id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
