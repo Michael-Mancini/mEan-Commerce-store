@@ -12,6 +12,11 @@ export class DashboardComponent implements OnInit {
   cart=[];
   quantity:number=1;
   addbtn:boolean = true;
+  numItems:number;
+  dontPush:boolean = false;
+  temp:number = 0;
+
+  private cartQuantity:number;
 
   constructor(private dataService:DataService) { }
 
@@ -19,7 +24,13 @@ export class DashboardComponent implements OnInit {
     this.getItems();
     if(localStorage.getItem('cart') != null){
       this.cart = JSON.parse(localStorage.getItem('cart'));
+      this.numItems = this.cart.length - 1;
     }
+    for(var i = 0; i < this.cart.length; i++){
+      this.temp += this.cart[i].quantity;
+    }
+    this.dataService.changeCart(this.temp);
+    this.temp = 0;
   }
 
   getItems(){
@@ -29,14 +40,32 @@ export class DashboardComponent implements OnInit {
   }
 
   addToCart(item, form){
-    this.cart.push({
-      id: item._id,
-      itemName: item.itemName,
-      itemPrice: item.itemPrice,
-      quantity: parseInt(form.value.quantity)
-    });
+    for(var i = 0; i < this.cart.length; i++){
+      if(this.cart[i].itemName == item.itemName){
+        this.cart[i].quantity += parseInt(form.value.quantity);
+        this.dontPush = true;
+      }
+    }
+
+    if(!this.dontPush){
+      this.cart.push({
+        id: item._id,
+        itemName: item.itemName,
+        itemPrice: item.itemPrice,
+        quantity: parseInt(form.value.quantity)
+      });
+    }
+
+    for(var i = 0; i < this.cart.length; i++){
+      this.temp += this.cart[i].quantity;
+    }
+    this.dataService.changeCart(this.temp);
+    this.temp = 0;
+
+    this.dontPush = false;
     this.addbtn = !this.addbtn;
     console.log(this.cart);
+    this.numItems += 1;
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  private cartQuantity:number;
+
+  constructor(private ds: DataService) { }
 
   ngOnInit() {
+    this.ds.currentCart.subscribe(cart => this.cartQuantity = cart);
   }
 
 }
