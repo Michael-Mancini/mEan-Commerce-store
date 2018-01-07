@@ -46,6 +46,24 @@ router.put('/item/:id', (req, res, next) => {
     });
 });
 
+router.put('/inventory/:id/:quantity', (req, res, next) => {
+    Item.findOneAndUpdate({
+        _id: req.params.id
+    }, {
+        $set:{
+            itemName: req.body.itemName,
+            itemPrice: req.body.itemPrice,
+            itemStock: req.body.itemStock - req.params.quantity
+        }
+    }, (err, result) => {
+        if(err){
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+    });
+});
+
 router.delete('/item/:id', (req, res, next) => {
     Item.remove({_id: req.params.id}, (err, result) => {
         if(err){
