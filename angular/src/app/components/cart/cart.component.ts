@@ -33,4 +33,14 @@ export class CartComponent implements OnInit {
     console.log(this.cart);
   }
 
+  checkout(){
+    for(var i = 0; i < this.cart.length; i++){
+      /*
+        subtract itemQuantity from itemStock via put request for each array index
+        -create put route in data service
+        --
+      */
+    }
+  }
+
 }

@@ -33,6 +33,13 @@ export class DataService {
       .map(res => res.json());
   }
 
+  updateInventory(item, quantity){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put('http://localhost:3000/admin/inventory/'+item._id+'/'+quantity, item, {headers:headers}).map(res => res.json());
+  }
+
   updateItem(newItem){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -52,7 +52,8 @@ export class DashboardComponent implements OnInit {
         id: item._id,
         itemName: item.itemName,
         itemPrice: item.itemPrice,
-        quantity: parseInt(form.value.quantity)
+        quantity: parseInt(form.value.quantity),
+        stock: item.itemStock
       });
     }
 
