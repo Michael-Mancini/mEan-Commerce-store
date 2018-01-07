@@ -46,14 +46,14 @@ router.put('/item/:id', (req, res, next) => {
     });
 });
 
-router.put('/inventory/:id/:quantity', (req, res, next) => {
+router.put('/inventory/:id/', (req, res, next) => {
     Item.findOneAndUpdate({
         _id: req.params.id
     }, {
         $set:{
             itemName: req.body.itemName,
             itemPrice: req.body.itemPrice,
-            itemStock: req.body.itemStock - req.params.quantity
+            itemStock: req.body.itemStock - req.body.quantity
         }
     }, (err, result) => {
         if(err){
